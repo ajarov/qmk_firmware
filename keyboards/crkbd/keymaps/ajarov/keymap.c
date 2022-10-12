@@ -25,6 +25,7 @@ enum layers {
     L_UPPER,
     L_RIGHT,
     L_UPPER_RIGHT,
+    L_DOS,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -66,13 +67,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [L_UPPER_RIGHT] = LAYOUT_split_3x6_3(
     //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        XXXXXXX, ES_IEXL,   ES_AT, ES_EURO,  ES_DLR, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, ES_MORD, XXXXXXX, KC_BSPC,
+      DF(L_DOS), ES_IEXL,   ES_AT, ES_EURO,  ES_DLR, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, ES_MORD, XXXXXXX, KC_BSPC,
     //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
         KC_LCTL, ES_FORD, ES_AMPR, ES_PIPE, ES_BSLS, ES_IQUE,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, ES_TILD,  ES_GRV,
     //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
         KC_LSFT, XXXXXXX,  ES_NOT, ES_CCED, ES_PERC, XXXXXXX,                      RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, KC_RSFT,
     //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                             KC_LGUI, _______,  KC_SPC,     KC_ENT, _______, KC_LALT
+                                        //`--------------------------'  `--------------------------'
+    ),
+
+    [L_DOS] = LAYOUT_split_3x6_3(
+    //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+           ES_1,    ES_2,    ES_3,    ES_4,    ES_5,    ES_6,                         ES_7,    ES_8,   KC_UP, XXXXXXX, XXXXXXX,   DF(0),
+    //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+        XXXXXXX, XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, XXXXXXX,                      XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,
+    //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                            XXXXXXX,  KC_SPC, XXXXXXX,    XXXXXXX,  KC_ENT, XXXXXXX
                                         //`--------------------------'  `--------------------------'
     )
 };
@@ -104,6 +117,9 @@ void oled_render_layer_state(void) {
             break;
         case L_UPPER_RIGHT:
             oled_write_ln_P(PSTR("Upper Right"), false);
+            break;
+        case L_DOS:
+            oled_write_ln_P(PSTR("DOS"), false);
             break;
         default:
             oled_write_ln_P(PSTR("Undefined"), false);
